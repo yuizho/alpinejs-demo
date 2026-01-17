@@ -1,0 +1,65 @@
+<html>
+  <head>
+    <title>Counter Example</title>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.15.4/dist/cdn.min.js"
+    ></script>
+    <script>
+      // Alpine.jsが利用可能になった直後のイベント。storeやdataはこのタイミングで登録する必要がある。
+      document.addEventListener("alpine:init", () => {
+        // Re-usable data
+        // テンプレートエンジンのInclude機能みたいなやつが使えないときに使うといいよと
+        Alpine.data("dropdown", () => ({
+          open: false,
+          toggle() {
+            this.open = !this.open;
+          },
+        }));
+
+        // Global state
+        Alpine.store("tabs", {
+          current: "first",
+
+          items: ["first", "second", "third"],
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <!-- Data is nestable -->
+    <div x-data="{ open: false }">
+      <div x-data="{ label: 'Content:' }">
+        <span x-text="label"></span>
+        <span x-show="open">aa</span>
+      </div>
+    </div>
+
+    <hr />
+
+    <!-- Single element data -->
+    <button x-data="{ label: 'Click Here' }" x-text="label"></button>
+
+    <hr />
+
+    <!-- Re-usable data -->
+    <div x-data="dropdown">
+      <button @click="toggle">Expand</button>
+      <span x-show="open">Content...</span>
+    </div>
+    <div x-data="dropdown">
+      <button @click="toggle">Expand</button>
+      <span x-show="open">Some Other Content...</span>
+    </div>
+
+    <hr />
+
+    <!-- Global state -->
+    <div x-data>
+      <div x-text="$store.tabs.current"></div>
+      <button @click="$store.tabs.current = 'first'">First Tab</button>
+      <button @click="$store.tabs.current = 'second'">Second Tab</button>
+      <button @click="$store.tabs.current = 'third'">Third Tab</button>
+    </div>
+  </body>
+</html>
