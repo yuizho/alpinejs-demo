@@ -15,6 +15,7 @@
     }">
         <input x-model="search" placeholder="Search...">
         <ul>
+            <!-- templateでforの記述が描画しない -->
             <template x-for="item in filteredItems" :key="item">
                 <li x-text="item"></li>
             </template>
