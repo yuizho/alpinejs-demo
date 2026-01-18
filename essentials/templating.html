@@ -1,0 +1,75 @@
+<html>
+  <head>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.15.4/dist/cdn.min.js"
+    ></script>
+    <style>
+      .bg-red {
+        background-color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Text content</h2>
+    <div x-data="{ title: 'Start Here' }">
+      <div x-text="title"></div>
+    </div>
+    <span x-data x-text="1 + 2"></span>
+
+    <h2>Toggling elements</h2>
+    <h3>x-show</h3>
+    <div x-data="{ open: false }">
+      <button @click="open = !open">Expand</button>
+      <!-- x-showを使うとdisplay:noneのスタイルが当たって表示が制御される -->
+      <div x-show="open">
+        Content...
+      </div>
+    </div>
+
+    <h3>x-if</h3>
+    <div x-data="{ open: false }">
+      <button @click="open = !open">Expand</button>
+      <!-- x-ifは必ずtemplateタグで囲む必要がある -->
+       <!-- これにより中に含まれる要素が動的に追加・削除される -->
+      <template x-if="open">
+        <div>
+          Content...
+        </div>
+      </template>
+
+    </div>
+
+    <h2>Toggling with transitions</h2>
+    <div x-data="{ open: false }">
+      <button @click="open = !open">Expand</button>
+      <div x-show="open" x-transition>
+        Content...
+      </div>
+      <!-- modifierをつけるとanimationが更に細かく制御可能 -->
+      <div x-show="open" x-transition.duration.1000ms>
+        Content...
+      </div>
+    </div>
+
+    <h2>Binding attributes</h2>
+    <button
+      x-data="{ red: false }"
+      x-bind:class="red ? 'bg-red' : ''"
+      @click="red = !red"
+    >
+      Toggle Red
+    </button>
+
+    <h2>Loooping elements</h2>
+    <div x-data="{ items: ['A', 'B', 'C'] }">
+      <template x-for="item in items" :key="item">
+        <div x-text="item"></div>
+      </template>
+    </div>
+
+    <h2>Inner HTML</h2>
+    <div x-data="{ title: '<h3>Start Here</h3>' }">
+      <div x-html="title"></div>
+    </div>
+</html>
