@@ -1,0 +1,40 @@
+<html>
+  <head>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.15.4/dist/cdn.min.js"
+    ></script>
+  </head>
+  <body>
+    <h2>Element initialization</h2>
+    <div x-init="console.log('Im initing')">init</div>
+
+    <h2>After a state change</h2>
+    <!--
+    x-effect が向いているケース
+    同期的な処理： 「データ A と B が変わったら、自動的に計算して画面の別の場所（または外部変数）を更新したい」とき。
+    初期化時にも動いてほしい： ページを開いた瞬間の状態を反映させたいとき。
+    $watch が向いているケース
+    ピンポイントな監視： 「他の変数がどうなろうと知ったこっちゃない、この ID が変わった時だけ API を叩きたい」とき。
+    変更の比較： 「前の値が null だった時だけ実行したい」など、新旧の比較が必要なとき。
+    初期化時に動いてほしくない： ユーザーの操作によって「変化」した時だけアクションを起こしたいとき。
+    -->
+
+    <h3>$watch</h3>
+    <div
+      x-data="{ open: false }"
+      x-init="$watch('open', value => console.log('$watch open state is changed: ' + value))"
+    >
+      <button @click="open = !open">Toggle</button>
+    </div>
+
+    <h3>x-effect</h3>
+    <!-- $watchと違い遅延動作でないので画表示時にも発火する -->
+    <div
+      x-data="{ open: false }"
+      x-effect="console.log('x-effect open state is changed: ' + open)"
+    >
+      <button @click="open = !open">Toggle</button>
+    </div>
+  </body>
+</html>
