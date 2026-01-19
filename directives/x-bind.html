@@ -1,0 +1,83 @@
+<html>
+  <head>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.15.4/dist/cdn.min.js"
+    ></script>
+    <style>
+      .hidden {
+        display: none;
+      }
+
+      .opacity-50 {
+        opacity: 0.5;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>x-bind</h1>
+    <div x-data="{ placeholder: 'Type here...' }">
+      x-bindを使うと、HTMLの属性にAlpine.jsのデータをバインドできます。<br />
+      <input type="text" :placeholder="placeholder" />
+    </div>
+
+    <h2>Class object syntax</h2>
+    <div x-data="{ show: true }">
+      <button @click="show = ! show">Toggle</button>
+      <div class="hidden" :class="{ 'hidden': ! show }">
+        x-bindにbooleanの値をバインドして、クラスの表示・非表示を切り替えられます。
+      </div>
+    </div>
+
+    <h2>Special behavior</h2>
+    <div x-data="{ show: true }">
+      <button @click="show = ! show">Toggle</button>
+      <div class="opacity-50" :class="show || 'hidden'">
+        classへのx-bindは特別で別のclass属性がある場合は、x-bind:classの内容を追加するようなうごきになる
+      </div>
+    </div>
+
+    <h2>Binding styles</h2>
+    <div x-data :style="{ color: 'red', display: 'flex', gap: '10px' }">
+      <div>ABCD</div>
+      <div>EFGH</div>
+      <div>IJKL</div>
+    </div>
+
+    <div>
+      classと同様ですでにstyle属性がある場合は、x-bind:styleの内容を追加するようなうごきになる
+    </div>
+    <div x-data style="color: blue" :style="{ display: 'flex', gap: '10px' }">
+      <div>ABCD</div>
+      <div>EFGH</div>
+      <div>IJKL</div>
+    </div>
+
+    <h2>Binding Alpine Directives Directly</h2>
+    <div x-data="dropdown">
+      <button x-bind="trigger">Open Dropdown</button>
+      <div x-bind="dialogue">Dropdown Contents</div>
+    </div>
+    <script>
+      document.addEventListener("alpine:init", () => {
+        Alpine.data("dropdown", () => ({
+          open: false,
+          trigger: {
+            ["x-ref"]: "trigger",
+            ["@click"]() {
+              this.open = true;
+            },
+          },
+          dialogue: {
+            ["x-show"]() {
+              return this.open;
+            },
+            ["@click.outside"]() {
+              this.open = false;
+            },
+          },
+        }));
+      });
+    </script>
+  </body>
+</html>
