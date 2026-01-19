@@ -1,0 +1,31 @@
+<html>
+  <head>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.15.4/dist/cdn.min.js"
+    ></script>
+  </head>
+  <body>
+    <h2>Methods</h2>
+    <!-- x-dataの中身は通常のJSのオブジェクトになるのでメソッドとかも使える -->
+    <div x-data="{ open: false, toggle() { this.open = ! this.open } }">
+      <!-- @click="toggle" でも動く -->
+      <button @click="toggle()">Toggle Content</button>
+      <div x-show="open">Content...</div>
+    </div>
+
+    <h2>Getters</h2>
+    <!-- https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Functions/get -->
+    <div
+      x-data="{
+        open: false,
+        get isOpen() { return this.open },
+        toggle() { this.open = ! this.open },
+      }"
+    >
+      <button @click="toggle()">Toggle Content</button>
+
+      <div x-show="isOpen">Content...</div>
+    </div>
+  </body>
+</html>
