@@ -1,0 +1,77 @@
+<html>
+  <head>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.15.4/dist/cdn.min.js"
+    ></script>
+  </head>
+  <body>
+    <h1>x-on</h1>
+    <button x-data x-on:click="alert('Hellow World!')">Say Hi</button>
+
+    <h2>Shorthand syntax</h2>
+    <button x-data @click="alert('Hellow World!')">Say Hi</button>
+
+    <h2>The event object</h2>
+    <button
+      x-data
+      @click="alert($event.target.getAttribute('message'))"
+      message="Hello World!!!!!!!"
+    >
+      Say Hi
+    </button>
+
+    <h2>Mouse events</h2>
+    <!-- Keyとmouseイベントを組み合わせられる -->
+    <button
+      type="button"
+      x-data="{ message: 'select' }"
+      @click="message = 'selected'"
+      @click.shift="message = 'added to selection'"
+      @mousemove.shift="message = 'add to selection'"
+      @mouseout="message = 'select'"
+      x-text="message"
+    ></button>
+
+    <h2>Modifiers</h2>
+    <h3>.outside</h3>
+    <div x-data="{ open: false }">
+      <button @click="open = ! open">Toggle</button>
+      <div x-show="open" @click.outside="open = false">Contents...</div>
+    </div>
+
+    <h3>.once</h3>
+    <button x-data @click.once="alert('I will only log once')">Click me</button>
+
+    <h3>.debounce</h3>
+    <input
+      x-data
+      type="text"
+      x-on:input.debounce.500ms="console.log($event.target.value)"
+      placeholder="500ms デバウンスしてconsole.logに出力"
+    />
+
+    <h3>.throttle</h3>
+    <div x-data="{ y: 0 }">
+      <p x-text="`Scroll Y: ${y}`"></p>
+      <div
+        style="
+          height: 200px;
+          width: 100px;
+          border: solid 1px black;
+          overflow: scroll;
+        "
+        @scroll.throttle.50ms="y = $event.currentTarget.scrollTop"
+      >
+        <div style="height: 3000px"></div>
+      </div>
+    </div>
+
+    <h3>.self</h3>
+    <button x-data @click.self="alert('Clicked on button')">
+      ボタン自体でしかクリックイベントは起きません
+      (子要素の画像クリックでは何も起きない))
+      <img width="50px" src="./personal_icon.jpeg" />
+    </button>
+  </body>
+</html>
