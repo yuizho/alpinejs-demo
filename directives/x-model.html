@@ -1,0 +1,44 @@
+<html>
+  <head>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.15.4/dist/cdn.min.js"
+    ></script>
+  </head>
+  <body>
+    <h1>x-model</h1>
+    <div x-data="{ message: '' }">
+      <p>
+        x-model is two-way bound, meaning it both "sets" and "gets". In addition
+        to changing data, if the data itself changes, the element will reflect
+        the change.
+      </p>
+      <input type="text" x-model="message" />
+      <button x-on:click="message = 'changed'">Change Message</button>
+      <p x-text="message"></p>
+    </div>
+
+    <h2>Checkbox inputs</h2>
+    <div x-data="{ colors: []}">
+      <input type="checkbox" value="red" x-model="colors" />
+      <input type="checkbox" value="orange" x-model="colors" />
+      <input type="checkbox" value="yellow" x-model="colors" />
+      <div>Colors: <span x-text="colors"></span></div>
+    </div>
+
+    <h2>Modifiers</h2>
+    <h3>.lazy</h3>
+    <div x-data="{ username: '' }">
+      <p>x-model.lazyでフォーカスアウト時にbindされる</p>
+      <input type="text" x-model.lazy="username" />
+      <span x-show="username.length > 20">The username is too long.</span>
+    </div>
+
+    <h3>.number</h3>
+    <div x-data="{ age: ''}">
+      <p>x-mode.numberで数値としてbindされる</p>
+      <input type="text" x-model.number="age" />
+      <span x-text="typeof age"></span>
+    </div>
+  </body>
+</html>
