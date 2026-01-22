@@ -1,0 +1,15 @@
+<html>
+  <head>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.15.4/dist/cdn.min.js"
+    ></script>
+  </head>
+  <body>
+    <h1>x-effect</h1>
+    <div x-data="{ label: 'Hello' }" x-effect="console.log(label)">
+      <p>x-effectは変数の変化を監視して副作用を実行できる。</p>
+      <button @click="label += ' World!'">Change Message</button>
+    </div>
+  </body>
+</html>
