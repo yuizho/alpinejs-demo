@@ -1,0 +1,44 @@
+<html>
+  <head>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.15.4/dist/cdn.min.js"
+    ></script>
+    <style>
+      [x-cloak] {
+        display: none !important;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>x-teleport</h1>
+    <p>
+      x-teleportの要素は、DOMツリー内の別の場所に移動されます。
+      親要素のCSSとかを継承しない、あるいははz-indexの影響で下に潜ったりするのを防ぐためにbodyの直下とかに要素を移動できます。
+      これによってモーダルダイアログとかが実装しやすくなります。
+    </p>
+    <p>
+      一方でAlpine.jsのdataは子供に継承されるので、x-teleportで移動した要素でも親要素のdataにアクセスできます。
+    </p>
+
+    <div
+      style="overflow: hidden; background-color: aqua; height: 300px"
+      x-data="{ open: false }"
+    >
+      <button @click="open = true">モーダルを開く</button>
+
+      <template x-teleport="body">
+        <div
+          x-show="open"
+          class="modal"
+          style="background-color: lightgray; height: 400px"
+        >
+          <div>
+            モーダルの内容
+            <button @click="open = false">閉じる</button>
+          </div>
+        </div>
+      </template>
+    </div>
+  </body>
+</html>
