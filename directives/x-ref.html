@@ -1,0 +1,22 @@
+<html>
+  <head>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.15.4/dist/cdn.min.js"
+    ></script>
+  </head>
+  <body>
+    <h1>x-ref</h1>
+    <div x-data>
+      <p>x-refでAlpine.js内で$refs経由でDomを参照するためのIDを指定できる。</p>
+      <p>
+        これらを組み合わせることで、Alpine.js内の状態を変えるだけでなく、ブラウザ標準世のDOM
+        APIを叩いたりできる。
+      </p>
+      <p>どうしてもDOM APIを直接触らないといけないときに仕方なく使う感じ。</p>
+      <div x-ref="hello">Hello 👋</div>
+
+      <button @click="$refs.hello.remove()">Remove Text</button>
+    </div>
+  </body>
+</html>
