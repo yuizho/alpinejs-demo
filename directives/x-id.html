@@ -1,0 +1,31 @@
+<html>
+  <head>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.15.4/dist/cdn.min.js"
+    ></script>
+    <style>
+      [x-cloak] {
+        display: none !important;
+      }
+    </style>
+  </head>
+  <body x-data>
+    <h1>x-id</h1>
+    <div x-id="['text-input']">
+      <label :for="$id('text-input')">Username</label>
+      <!-- for="text-input-1" -->
+
+      <input type="text" :id="$id('text-input')" />
+      <!-- id="text-input-1" -->
+    </div>
+
+    <div x-id="['text-input']">
+      <label :for="$id('text-input')">Username</label>
+      <!-- for="text-input-2" -->
+
+      <input type="text" :id="$id('text-input')" />
+      <!-- id="text-input-2" -->
+    </div>
+  </body>
+</html>
